@@ -13,7 +13,7 @@ function   pridajPozdrav()
 }
 function generateSlides($dir) {
     $files = glob($dir . "/*.jpg");
-    $json = file_get_contents("data/datas.json");
+    $json = file_get_contents("datas.json");
     $data = json_decode($json, true);
     $text = $data["text_banner"];
 
@@ -23,6 +23,40 @@ function generateSlides($dir) {
         echo '<div class="slide-text">';
         echo ($text[basename($file)]);
         echo '</div>';
+        echo '</div>';
+    }
+}
+function generatePortfolio($dir) {
+    $files = glob($dir . "/*.jpg");
+
+    $json = file_get_contents("data/datas.json");
+    $data = json_decode($json, true);
+    $text = $data["portfolio"];
+
+    $count = 0;
+
+    foreach ($files as $file) {
+        if ($count % 4 == 0) {
+            echo '<div class="row">';
+        }
+
+        $fileName = basename($file);
+
+        echo '<div class="col-25 portfolio text-white text-center" id="portfolio-' . ($count + 1) . '">';
+        echo '<img src="' . $file . '">';
+        echo '<div class="portfolio-text">';
+        echo $text[$fileName];
+        echo '</div>';
+        echo '</div>';
+
+        $count++;
+
+        if ($count % 4 == 0) {
+            echo '</div>';
+        }
+    }
+
+    if ($count % 4 != 0) {
         echo '</div>';
     }
 }
