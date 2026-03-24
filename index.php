@@ -16,6 +16,7 @@ if (!include($file_path) ) {
 }
 ?>
 <?php require "parts/header.php"; ?>
+
     
     <main>
       <section class="slides-container">
