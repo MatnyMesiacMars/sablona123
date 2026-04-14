@@ -1,4 +1,4 @@
-<?php require "functions.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,8 @@ if (!include($file_path) ) {
     
     <main>
         <section class="slides-container">
-            <?php generateSlides("img"); ?>
+            <?php require "functions.php"; ?>
+            <?php generateSlides("img/banner"); ?>
 
             <a id="prev" class="prev">❮</a>
             <a id="next" class="next">❯</a>

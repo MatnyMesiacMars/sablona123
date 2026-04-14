@@ -28,7 +28,7 @@
             <section class="container">
                 <?php
                 include_once "functions.php";
-                generatePortfolio("img");
+                generatePortfolio("img/portfolio");
                 ?>
             </section>
 
