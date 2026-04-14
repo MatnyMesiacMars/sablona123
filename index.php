@@ -1,3 +1,4 @@
+<?php require "functions.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,36 +16,16 @@ if (!include($file_path) ) {
     echo "Failed to include $file_path";
 }
 ?>
-<?php require "parts/header.php"; ?>
+
 
     
     <main>
-      <section class="slides-container">
-        <div class="slide fade">
-          <img src="img/banner1.jpg">
-          <div class="slide-text">
-            Prvý nadpis
-          </div>
-        </div>
+        <section class="slides-container">
+            <?php generateSlides("img"); ?>
 
-        <div class="slide fade">
-          <img src="img/banner2.jpg">
-          <div class="slide-text">
-            Druhý nadpis
-          </div>
-        </div>
-
-        <div class="slide fade">
-          <img src="img/banner3.jpg">
-          <div class="slide-text">
-            Tretí nadpis
-          </div>
-        </div>
-
-        <a id="prev" class="prev">❮</a>
-        <a id="next" class="next">❯</a>
-
-      </section>
+            <a id="prev" class="prev">❮</a>
+            <a id="next" class="next">❯</a>
+        </section>
       <section class="container">
         <div class="row">
           <div class="col-100 text-center">

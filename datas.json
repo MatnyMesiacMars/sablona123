@@ -1,26 +1,13 @@
 {
   "name": "sablona",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MatnyMesiacMars/sablona123.git"
-  },
-  "private": true,
+
   "text_banner": {
     "banner1.jpg": "prvy",
     "banner2.jpg": "druhy",
     "banner3.jpg": "treti"
   },
-  "portfolio": {
-    "banner1.jpg": "prvy",
-    "banner2.jpg": "druhy",
-    "banner3.jpg": "treti"
-  },
+
   "portfolio": {
     "portfolio1.jpg": "Web stránka 1",
     "portfolio2.jpg": "Web stránka 2",
@@ -31,5 +18,4 @@
     "portfolio7.jpg": "Web stránka 7",
     "portfolio8.jpg": "Web stránka 8"
   }
-
 }
