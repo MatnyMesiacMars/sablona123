@@ -19,6 +19,7 @@ if (!include($file_path) ) {
 ?>
 <?php require "parts/header.php"; ?>
 
+
   <main>
     <section class="banner">
       <div class="container text-white">
@@ -43,14 +44,47 @@ if (!include($file_path) ) {
         </div>
         <div class="col-50 text-right">
           <h3>Napíšte nám</h3>
-          <form id="contact" action="thankyou.html">
-            <input type="text" placeholder="Vaše meno" id ="meno"  required><br>
-            <input type="email" placeholder="Váš email" id="email" required><br>
-            <textarea name="" placeholder="Vaša správa" id="sprava"></textarea><br>
-            <input type="checkbox" name="" id="" required>
-            <label for=""> Súhlasím so spracovaním osobných údajov.</label><br>
-            <input type="submit" value="Odoslať">
-          </form>
+            <form id="contact" method="post" action="db/spracovanieFormulara.php">
+
+                <input
+                        type="text"
+                        name="meno"
+                        id="meno"
+                        placeholder="Vaše meno"
+                        required
+                >
+                <br>
+
+                <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Váš email"
+                        required
+                >
+                <br>
+
+                <textarea
+                        name="sprava"
+                        id="sprava"
+                        placeholder="Vaša správa"
+                ></textarea>
+                <br>
+
+                <input
+                        type="checkbox"
+                        name="suhlas"
+                        id="suhlas"
+                        required
+                >
+                <label for="suhlas">
+                    Súhlasím so spracovaním osobných údajov.
+                </label>
+                <br>
+
+                <input type="submit" value="Odoslať">
+
+            </form>
         </div>
       </div>
     </section>
