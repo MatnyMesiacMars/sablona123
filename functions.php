@@ -78,5 +78,6 @@ function generatePortfolio($dir) {
     }
 }
 
+
             ?>
 

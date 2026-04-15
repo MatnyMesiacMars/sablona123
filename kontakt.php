@@ -71,13 +71,12 @@ if (!include($file_path) ) {
                 ></textarea>
                 <br>
 
-                <input
-                        type="checkbox"
-                        name="suhlas"
-                        id="suhlas"
+                <input type="checkbox"
+                        name=""
+                        id=""
                         required
                 >
-                <label for="suhlas">
+                <label for="">
                     Súhlasím so spracovaním osobných údajov.
                 </label>
                 <br>
