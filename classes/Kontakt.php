@@ -2,8 +2,6 @@
 
 namespace formular;
 
-require_once '../db/spracovanieFormulara.php';
-
 use PDO;
 use PDOException;
 
@@ -18,7 +16,8 @@ class Kontakt
 
     private function connect(): void
     {
-        $config = DATABASE;
+        // Load configuration safely
+        $config = require __DIR__ . '/../config.php';
 
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -39,32 +38,32 @@ class Kontakt
             die("Chyba pripojenia: " . $e->getMessage());
         }
     }
-}
-public function ulozitSpravu(string $meno, string $email, string $sprava): bool
-{
-    $sql = "INSERT INTO kontakt_formular (meno, email, sprava) 
-            VALUES (:meno, :email, :sprava)";
 
-    $statement = $this->conn->prepare($sql);
+    /**
+     * Uloží správu z kontaktného formulára do databázy
+     */
+    public function ulozitSpravu(string $meno, string $email, string $sprava): bool
+    {
+        $sql = "INSERT INTO kontakt_formular (meno, email, sprava) 
+                VALUES (:meno, :email, :sprava)";
 
-    try {
-        $insert = $statement->execute([
-            ':meno' => $meno,
-            ':email' => $email,
-            ':sprava' => $sprava,
-        ]);
+        try {
+            $stmt = $this->conn->prepare($sql);
 
-        header("Location: http://localhost/cvicnasablona/thankyou.php");
-        http_response_code(200);
-        exit;
+            return $stmt->execute([
+                ':meno' => $meno,
+                ':email' => $email,
+                ':sprava' => $sprava,
+            ]);
 
-    } catch (\Exception $exception) {
-        http_response_code(500);
-        return false;
+        } catch (PDOException $e) {
+            error_log("DB error: " . $e->getMessage());
+            return false;
+        }
     }
-}
 
-public function __destruct()
-{
-    $this->conn = null;
+    public function __destruct()
+    {
+        $this->conn = null;
+    }
 }

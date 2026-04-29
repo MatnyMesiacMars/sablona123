@@ -11,10 +11,7 @@
 </head>
 <body>
 <?php
-$file_path = "parts/header.php";
-if (!include($file_path) ) {
-    echo "Failed to include $file_path";
-}
+require __DIR__ . "/parts/header.php";
 ?>
 
 
@@ -48,10 +45,7 @@ if (!include($file_path) ) {
     </main>
     
  <?php
- $file_path = "parts/footer.php";
- if (!include($file_path) ) {
-     echo "Failed to include $file_path";
- }
+ require __DIR__ . "/parts/footer.php";
  ?>
 
     <script src="js/menu.js"></script>
