@@ -1,51 +1,42 @@
 <?php
+class Menu{
+    private array $validateMenuTypes = ["header", "footer"];
 
-class Menu
-{
-    private array $menuData = [
-        "header" => [
-            "home" => [
-                "label" => "Domov",
-                "path"  => "/sablona/index.php"
-            ],
-            "portfolio" => [
-                "label" => "Portfólio",
-                "path"  => "/sablona/portfolio.php"
-            ],
-            "qna" => [
-                "label" => "Q&A",
-                "path"  => "/sablona/qna.php"
-            ],
-            "kontakt" => [
-                "label" => "Kontakt",
-                "path"  => "/sablona/kontakt.php"
-            ]
-        ]
-    ];
-
-    /**
-     * Returns menu data for a given type
-     */
-    public function getMenuData(string $type): array
-    {
-        return $this->menuData[$type] ?? [];
+    public function isValidMenuType(string $type): bool {
+        return in_array($type, $this->validateMenuTypes);
     }
 
-    /**
-     * Simple validation if menu type exists
-     */
-    public function isValidMenuType(string $type): bool
-    {
-        return isset($this->menuData[$type]);
-    }
-
-    /**
-     * Prints menu HTML
-     */
-    public function printMenu(array $menu): void
-    {
-        foreach ($menu as $item) {
-            echo '<li><a href="' . $item['path'] . '">' . $item['label'] . '</a></li>';
+    public function getMenuData(string $type): array {
+        if (!$this->isValidMenuType($type)) {
+            throw new InvalidArgumentException("Invalid menu type: $type");
         }
+        $menuData = [
+            "header" => [
+                'home' => [
+                    'name' => 'Domov',
+                    'path' => 'index.php',
+                ],
+                'portfolio' => [
+                    'name' => 'Portfólio',
+                    'path' => 'portfolio.php',
+                ],
+                'qna' => [
+                    'name' => 'Q&A',
+                    'path' => 'qna.php',
+                ],
+                'kontakt' => [
+                    'name' => 'Kontakt',
+                    'path' => 'kontakt.php',
+                ]
+            ],
+        ];
+        return $menuData[$type];
+    }
+    public function printMenu(array $menu): void {
+        //echo '<ul>';
+        foreach ($menu as $menuName => $menuItem) {
+            echo '<li><a href="' . $menuItem['path'] . '">' . $menuItem['name'] . '</a></li>';
+        }
+        //echo '</ul>';
     }
 }

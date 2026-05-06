@@ -1,69 +1,27 @@
 <?php
+error_reporting(E_ALL); //zapnutie chybových hlásení
+ini_set("display_errors","On");
+require_once(__ROOT__.'/classes/Database.php');
+class Kontakt extends Database {
+    protected $connection;
 
-namespace formular;
-
-use PDO;
-use PDOException;
-
-class Kontakt
-{
-    private PDO $conn;
-
-    public function __construct()
-    {
+    public function __construct() {
         $this->connect();
+        //Použitie gettera na získanie spojenia
+        $this->connection = $this->getConnection();
     }
-
-    private function connect(): void
-    {
-        // Load configuration safely
-        $config = require __DIR__ . '/../config.php';
-
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ];
-
-        try {
-            $dsn = "mysql:host={$config['HOST']};dbname={$config['DBNAME']};port={$config['PORT']}";
-
-            $this->conn = new PDO(
-                $dsn,
-                $config['USER_NAME'],
-                $config['PASSWORD'],
-                $options
-            );
-
-        } catch (PDOException $e) {
-            die("Chyba pripojenia: " . $e->getMessage());
-        }
-    }
-
-    /**
-     * Uloží správu z kontaktného formulára do databázy
-     */
-    public function ulozitSpravu(string $meno, string $email, string $sprava): bool
-    {
+    public function ulozitSpravu($meno, $email, $sprava) {
         $sql = "INSERT INTO kontakt_formular (meno, email, sprava) 
                 VALUES (:meno, :email, :sprava)";
-
+        $statement = $this->connection->prepare($sql);
         try {
-            $stmt = $this->conn->prepare($sql);
-
-            return $stmt->execute([
-                ':meno' => $meno,
-                ':email' => $email,
-                ':sprava' => $sprava,
-            ]);
-
-        } catch (PDOException $e) {
-            error_log("DB error: " . $e->getMessage());
+            $insert = $statement->execute(array(':meno' => $meno,
+                ':email' => $email, ':sprava' => $sprava));
+            http_response_code(200);
+            return $insert;
+        } catch (\Exception $exception) {
+            http_response_code(500);
             return false;
         }
-    }
-
-    public function __destruct()
-    {
-        $this->conn = null;
     }
 }
